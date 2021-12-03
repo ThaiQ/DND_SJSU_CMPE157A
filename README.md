@@ -21,3 +21,6 @@ cd frontend
 npm install
 npm start
 ```
+
+### Demo
+![Screenshot from 2021-12-02 20-51-47](https://user-images.githubusercontent.com/18486562/144547283-445c9ccb-a328-4cb5-ad29-189646b2e133.png)
