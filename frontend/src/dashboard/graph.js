@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react';
-import {courses} from './data'
+import {stats} from './data'
+
 const Chart = require('chart.js')
 export default function Graph() {
 
@@ -7,7 +8,6 @@ export default function Graph() {
     Chart.defaults.global.animation.duration = 2000;
     Chart.defaults.global.legend.display = false;
 
-    const [course, setCourse] = useState(courses)
 
 
     useEffect(()=>{
@@ -17,7 +17,7 @@ export default function Graph() {
             data: {
                 labels: ["Con","Str","Dex","Int","Wis","Cha","Armor"],
                 datasets: [{
-                    data: [12, 16, 18, 12, 11, 20, 12],
+                    data: stats,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

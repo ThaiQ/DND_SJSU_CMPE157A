@@ -24,6 +24,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CachedIcon from '@material-ui/icons/Cached';
+import {spells} from '../../dashboard/data'
 
 const drawerWidth = 240;
 
@@ -81,9 +82,7 @@ function ResponsiveDrawer(props) {
     setOpen(!open);
   };
 
-  const categories = [
-    "Absorb Elements","Alarm","Animal Friendship","Healing Hand"
-  ]
+  const categories = spells
 
   function navigateTo(url) {
     if (url === '' || !url || url === ' ') {

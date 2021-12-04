@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './dashboard.css'
 import Grid from './grid'
 import Drawer from '../components/left-navbar/drawer'
+import {char} from './data'
 
 const Chart = require('chart.js')
 
@@ -23,7 +24,7 @@ export default function Profile(props) {
     return (
         <div className='dashboard-app'>
             hi
-            <Drawer title='Dashboard' content={Grid} user={"Bob | Wizard - 12 | Exp: 100"}/>
+            <Drawer title='Dashboard' content={Grid} user={char}/>
         </div>
     );
 }

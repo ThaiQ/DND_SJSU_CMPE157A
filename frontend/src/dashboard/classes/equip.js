@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import '../dashboard.css'
+import {eq_items} from '../data'
 
 const axios = require('axios')
 
@@ -24,14 +25,7 @@ export default function EquipTable() {
     useEffect(()=>{
     },[])
 
-    let items = [
-        {
-            slot:"Chestplate",
-            name:"Leather Armor",
-            desc:"Light Armor",
-            stats:"AC 10"
-        }
-    ]
+    let items = eq_items
 
     function navCourse(href){
         window.location.href=href

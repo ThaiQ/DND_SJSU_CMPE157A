@@ -1,76 +1,74 @@
-let courses = [
+import React, {useEffect} from 'react'
+import axios from 'axios'
+import { useParams } from "react-router-dom";
+
+const queryParams = new URLSearchParams(window.location.search);
+
+async function get(){
+    let player_data = null
+    let bio_data = null
+    let quipment_data = null
+    let inventory_data = null
+    let class_spell_data = null
+
+    //Fetch info from Flask server
+    await axios.get('http://localhost:5000',{
+        params: {
+            playerID: queryParams.get('user')
+        }
+      }).then((res)=>{
+        player_data = res.data.playerdata
+        bio_data = res.data.biodata
+        quipment_data = res.data.equipmentdata
+        inventory_data = res.data.inventorydata
+        class_spell_data = res.data.classspelldata 
+    })
+
+    let stats = [player_data.constitution, player_data.strength, player_data.dexterity, player_data.intelligence,
+        player_data.wisdom, player_data.charisma, 10]
+    player_data = `${player_data.name} | ${player_data.class} - ${player_data.level} | Exp: ${player_data.experience} `
+    return {
+        player_data,bio_data,quipment_data,inventory_data,class_spell_data,stats
+    }
+}
+
+/**
+ * EXPORTS
+ * info from database or default to placeholder
+ */
+export var spells = get().class_spell_data || [
+    "Absorb Elements", "Alarm", "Animal Friendship", "Healing Hand"
+]
+
+export var items = get().inventory_data || [
     {
-        text: "CMPE131",
-        grade: 95,
-        session: 1,
-        semester: 'Fall-2020',
-        professor: "Dr. A",
-        id: "id1",
-        time: 'Thr/Fri'
+        name: "Amber",
+        desc: "A transparent watery gold to rich gold gemstone worth 100 gold pieces.",
+        stats: "12 pieces"
     },
     {
-        text: "BIO10",
-        grade: 40,
-        session: 3,
-        semester: 'Fall-2020',
-        professor: "Dr. B",
-        id: "id2",
-        time: 'Thr/Fri'
-    },
-    {
-        text: "CS146",
-        grade: 80,
-        session: 1,
-        semester: 'Fall-2020',
-        professor: "Staff",
-        id: "id3",
-        time: 'Tue'
-    },
-    {
-        text: "CS149",
-        grade: 30,
-        session: 2,
-        semester: 'Fall-2020',
-        professor: "Dr. D",
-        id: "id4",
-        time: 'Mon/Wed'
-    },
-    {
-        text: "CMPE120",
-        grade: 70,
-        session: 2,
-        semester: 'Fall-2020',
-        professor: "Staff",
-        id: "id5",
-        time: 'Mon/Wed'
-    },
-    {
-        text: "CMPE151",
-        grade: 90,
-        session: 1,
-        semester: 'Fall-2020',
-        professor: "Dr. F",
-        id: "id6",
-        time: 'Tue/Thur'
+        name: "Amulet",
+        desc: "A holy symbol is a representation of a god or pantheon.",
+        stats: "Holy"
     }
 ]
 
-let todo = [
+export var eq_items = get().quipment_data || [
     {
-      text: "CMPE151: Homework 7",
-      due: 0,
-      done: false
-    },
-    {
-      text: "CS146: Extra credits",
-      due: 4,
-      done: false
-    },
-    {
-        text: "BIO10: Research Paper",
-        due: 6,
-        done: false
+        slot:"Chestplate",
+        name:"Leather Armor",
+        desc:"Light Armor",
+        stats:"AC 10"
     }
-  ]
+]
 
-module.exports = {courses, todo}
+export var stats = get().stats || [12, 16, 18, 12, 11, 20, 12]
+
+export var bg = get().bio_data || {
+    bio: "You have always been alone for as long as you can remember, whether you live in a forest or a village- people never really bothered you. Now you are forced to band with others because there becomes a point in survival where being alone is too much, and the best way to live safely is with others who care for you.",
+    trait: "Able to convince anyone",
+    ideal: "Chaotic",
+    flaw: "Doesn't know about a lot of the world"
+}
+
+export var char = get().player_data || "Bob | Wizard - 12 | Exp: 100"

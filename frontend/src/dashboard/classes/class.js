@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import '../dashboard.css'
+import {items} from '../data'
 
 const axios = require('axios')
 
@@ -23,19 +24,6 @@ export default function BasicTable() {
 
     useEffect(()=>{
     },[])
-
-    let items = [
-        {
-            name:"Amber",
-            desc:"A transparent watery gold to rich gold gemstone worth 100 gold pieces.",
-            stats:"12 pieces"
-        },
-        {
-            name:"Amulet",
-            desc:"A holy symbol is a representation of a god or pantheon.",
-            stats:"Holy"
-        }
-    ]
 
     function navCourse(href){
         window.location.href=href

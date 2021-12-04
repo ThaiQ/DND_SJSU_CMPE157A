@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
-import data from '../data'
 import '../dashboard.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,20 +23,11 @@ export default function CheckboxList() {
   const classes = useStyles();
   const [status, setStatus] = useState(false);
   //const [todo,setTodo] = useState(data.todo);
-  const {todo} = require('../data')
 
-  useEffect(()=>{},[todo])
 
-  const handleToggle = (index) => {
-    // let tempTodo = todo
-    // let temp = todo[index]
-    // temp = {...temp, done:!temp.done}
-    // tempTodo[index] = temp
-    // setTodo(tempTodo)
-    // setStatus(!status);
-    todo[index].done = !todo[index].done
-    setStatus(!status);
-  };
+  useEffect(()=>{},[])
+
+
 
   function styleDue(value){
     if (value < 3){
@@ -50,29 +40,7 @@ export default function CheckboxList() {
 
   return (
     <List className={classes.root}>
-      {todo.map((value,ind) => {
-        const labelId = `checkbox-list-label-${value.text}`;
-
-        return (
-          <ListItem key={ind} role={undefined} dense button onClick={()=>{handleToggle(ind)}}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={todo[ind].done}
-                tabIndex={-1}
-                disableRipple
-                inputProps={{ 'aria-labelledby': labelId }}
-              />
-            </ListItemIcon>
-        <ListItemText id={labelId} primary={value.text} /> <span style = {styleDue(value.due)}>&nbsp;{value.due<1?'Today' : value.due+' days'}&nbsp;</span>
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon className='dashb-text'/>
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
+      
     </List>
   );
 }
