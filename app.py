@@ -1,9 +1,10 @@
-from flask import Flask, render_template, app, request
+from flask import Flask, render_template, app, request, jsonify
 import mysql.connector
+app = Flask(__name__)
 
 database = mysql.connector.connect(
-    host = 'localhost', user = 'root',
-    passwd = '', database = 'cs158Afinal')
+    host = 'localhost', user = 'test',
+    passwd = '1', database = 'cs158afinal')
 
 
 mycursor = database.cursor()
@@ -13,28 +14,38 @@ def Convert(tup, di):
         di.setdefault(a, []).append(b)
     return di
 
+
+def retList():
+   list = []
+   for i in range(0, 10):
+      list.append(i)
+   return list
+
+
 @app.route('/')
 def index():
    mycursor.execute('SELECT * FROM Player')
-   playerdata={}
    playerdatatuple = mycursor.fetchall()
-   Convert(playerdatatuple, playerdata)
    mycursor.execute('SELECT * FROM Bio')
-   biodata={}
    biodatatuple = mycursor.fetchall()
-   biodata = Convert(biodatatuple, biodata)
    mycursor.execute('SELECT * FROM Equipment')
-   equipmentdata={}
    equipmentdatatuple = mycursor.fetchall()
-   Convert(equipmentdatatuple, equipmentdata)
    mycursor.execute('SELECT * FROM Inventory')
    inventorydatatuple = mycursor.fetchall()
-   inventorydata={}
-   Convert(inventorydatatuple, inventorydata)
-   mycursor.execute('SELECT * FROM Class_Spell')
-   classspelldata={}
+   mycursor.execute('SELECT * FROM Class_Spells')
    classspelldatatuple = mycursor.fetchall()
-   Convert(classspelldatatuple, classspelldata)
+   mycursor.execute('SELECT * FROM Class')
+   classdatatuple = mycursor.fetchall()
+   mycursor.execute('SELECT * FROM Item')
+   itemdatatuple = mycursor.fetchall()
+   mycursor.execute('SELECT * FROM Proficient_Skill')
+   proficientskilldatatuple = mycursor.fetchall()
+   mycursor.execute('SELECT * FROM Spells')
+   spelldatatuple = mycursor.fetchall()
+   return jsonify(playerdatatuple + biodatatuple + equipmentdatatuple + inventorydatatuple + classspelldatatuple + classdatatuple + itemdatatuple + proficientskilldatatuple + spelldatatuple)
+   # return jsonify(
+   #    player=playerdatatuple
+   # )
 
 if __name__ == '__main__':
     app.run()
